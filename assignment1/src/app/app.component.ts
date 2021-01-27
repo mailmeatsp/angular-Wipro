@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IEmployee } from './models/employee';
 
 @Component({
@@ -6,21 +6,11 @@ import { IEmployee } from './models/employee';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   employees: IEmployee[];
   allEmployees: IEmployee[];
   searchText = '';
-  sortingNameAtoZ: IEmployee[];
-  sortingNameZtoA: IEmployee[];
-  sortingAges: IEmployee[];
-  sortingEmails: IEmployee[];
-  computer: IEmployee[];
-  physics: IEmployee[];
-  chemistry: IEmployee[];
-  total: number;
-  count = 0;
-
 
   constructor() {
     // Employee Details
@@ -66,43 +56,13 @@ export class AppComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-
-    let count = 0;
-    for (const item of this.employees) {
-      count += item.age;
-      this.total = count;
-    }
-  }
-
   // Departments filter
-  departmentComp(): void {
-    this.computer = this.employees.filter( item => {
-      if (item.departments === 'Computer') {
-        return true;
-      }});
-    console.log(this.computer);
-  }
 
-  departmentPhy(): void {
-    this.physics = this.employees.filter( item => {
-      if (item.departments === 'Physics') {
-        return true;
-      }});
-    console.log(this.physics);
-  }
-
-  departmentChem(): void {
-    this.chemistry = this.employees.filter( item => {
-      const data = [];
-      if (item.departments === 'Chemistry') {
-        data.push(item);
-        return data;
-      }
+  departmentChangeEvent(dep: string): void {
+    this.employees = this.allEmployees.filter(item => {
+      return item.departments.indexOf(dep) >= 0;
     });
-    console.log(this.chemistry);
   }
-
 
   // Searching via Name / Email
   searchData(): void {
@@ -112,37 +72,37 @@ export class AppComponent implements OnInit {
   }
 
   //  Reset / Reloading Employee Data
-  refreshHandling(): void {
+  resetData(): void {
     this.employees = this.allEmployees;
   }
 
   //  Sorting
-  sorting(): void {
-    this.sortingNameAtoZ = this.employees.sort((a: any, b: any) => {
+  sortChangeAtoZ(): void {
+    this.employees = this.allEmployees.sort((a: any, b: any) => {
       if (a.name < b.name) {
         return -1;
       }
     });
   }
 
-  sortingZToA(): void {
-    this.sortingNameZtoA = this.employees.sort((a: any, b: any) => {
+  sortChangeZtoA(): void {
+    this.employees = this.allEmployees.sort((a: any, b: any) => {
       if (a.name > b.name) {
         return -1;
       }
     });
   }
 
-  sortingAge(): void {
-    this.sortingAges = this.employees.sort((a: any, b: any) => {
+  sortChangeAge(): void {
+    this.employees = this.allEmployees.sort((a: any, b: any) => {
       if (a.age < b.age) {
         return -1;
       }
     });
   }
 
-  sortingEmail(): void {
-    this.sortingEmails = this.employees.sort((a: any, b: any) => {
+  sortChangeEmail(): void {
+    this.employees = this.allEmployees.sort((a: any, b: any) => {
       if (a.email < b.email) {
         return -1;
       }

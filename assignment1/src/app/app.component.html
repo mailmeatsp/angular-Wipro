@@ -1,18 +1,17 @@
-<h1>Employee Details : {{'age' + total}}</h1> <!-- but i want total employee -->
+<h1>Employee Details : {{ employees.length }}</h1> 
 <hr>
 
-
-<div class="row mb-4">
+<div class="row mb-4 ml-3">
 
   <!-- Deparment Dropdown -->
   <div class="col md-3">
     <div ngbDropdown class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Deprtments</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem (click)="departmentComp()">Computer</button>
-        <button ngbDropdownItem (click)="departmentPhy()">Physics</button>
-        <button ngbDropdownItem (click)="departmentChem()">Chemistry</button>
-      </div>
+				<button ngbDropdownItem (click)="departmentChangeEvent('Computer')">Computer</button>
+				<button ngbDropdownItem (click)="departmentChangeEvent('Physics')">Physics</button>
+				<button ngbDropdownItem (click)="departmentChangeEvent('Chemistry')">Chemistry</button>
+			</div>
     </div>
   </div>
 
@@ -27,18 +26,18 @@
 
   <!-- Reset and Reload Data -->
   <div class="col md-3">
-    <button class="btn btn-primary" (click)="refreshHandling()">Reset and Reload Data</button>
+    <button class="btn btn-primary" (click)="resetData()">Reset and Reload Data</button>
   </div>
 
   <!-- Sort Dropdown -->
   <div class="col md-3">
     <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Sort By</button>
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle (click)="sortChangeAtoZ()">Sort By</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem (click)="sorting()">[A-Z]</button>
-        <button ngbDropdownItem (click)="sortingZToA()">[Z-A]</button>
-        <button ngbDropdownItem (click)="sortingAge()">Age</button>
-        <button ngbDropdownItem (click)="sortingEmail()">Email</button>
+        <button ngbDropdownItem (click)="sortChangeAtoZ()">[A-Z]</button>
+        <button ngbDropdownItem (click)="sortChangeZtoA()">[Z-A]</button>
+        <button ngbDropdownItem (click)="sortChangeAge()">Age</button>
+        <button ngbDropdownItem (click)="sortChangeEmail()">Email</button>
       </div>
     </div>
   </div>
