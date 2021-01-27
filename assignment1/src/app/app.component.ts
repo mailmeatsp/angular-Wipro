@@ -7,12 +7,10 @@ import { IEmployee } from './models/employee';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'assignment1';
+
   employees: IEmployee[];
   allEmployees: IEmployee[];
   searchText = '';
-  count = 0;
-  total: any;
   sortingNameAtoZ: IEmployee[];
   sortingNameZtoA: IEmployee[];
   sortingAges: IEmployee[];
@@ -20,10 +18,12 @@ export class AppComponent implements OnInit {
   computer: IEmployee[];
   physics: IEmployee[];
   chemistry: IEmployee[];
-
+  total: number;
+  count = 0;
 
 
   constructor() {
+    // Employee Details
     this.employees = [
       {
         name: 'Employee One',
@@ -63,16 +63,46 @@ export class AppComponent implements OnInit {
       },
     ];
     this.allEmployees = [...this.employees];
+
   }
 
   ngOnInit(): void {
-    // for (const i of this.employees) {
-    //   this.total = i;
-    //   console.log(i.length);
-    // }
+
+    let count = 0;
+    for (const item of this.employees) {
+      count += item.age;
+      this.total = count;
+    }
   }
 
   // Departments filter
+  departmentComp(): void {
+    this.computer = this.employees.filter( item => {
+      if (item.departments === 'Computer') {
+        return true;
+      }});
+    console.log(this.computer);
+  }
+
+  departmentPhy(): void {
+    this.physics = this.employees.filter( item => {
+      if (item.departments === 'Physics') {
+        return true;
+      }});
+    console.log(this.physics);
+  }
+
+  departmentChem(): void {
+    this.chemistry = this.employees.filter( item => {
+      const data = [];
+      if (item.departments === 'Chemistry') {
+        data.push(item);
+        return data;
+      }
+    });
+    console.log(this.chemistry);
+  }
+
 
   // Searching via Name / Email
   searchData(): void {
@@ -94,6 +124,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
   sortingZToA(): void {
     this.sortingNameZtoA = this.employees.sort((a: any, b: any) => {
       if (a.name > b.name) {
@@ -101,6 +132,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
   sortingAge(): void {
     this.sortingAges = this.employees.sort((a: any, b: any) => {
       if (a.age < b.age) {
@@ -108,6 +140,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
   sortingEmail(): void {
     this.sortingEmails = this.employees.sort((a: any, b: any) => {
       if (a.email < b.email) {
