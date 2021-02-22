@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { IEmployee } from './models/employee';
 
 @Component({
@@ -6,14 +7,19 @@ import { IEmployee } from './models/employee';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   employees: IEmployee[];
   allEmployees: IEmployee[];
   searchText = '';
+  sorting: any;
+  contactForm: FormGroup;
+  sort: any;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     // Employee Details
+    this.sorting = ['[A-Z]', '[Z-A]', 'Age', 'Email'];
+
     this.employees = [
       {
         name: 'Employee One',
@@ -57,7 +63,6 @@ export class AppComponent {
   }
 
   // Departments filter
-
   departmentChangeEvent(dep: string): void {
     this.employees = this.allEmployees.filter(item => {
       return item.departments.indexOf(dep) >= 0;
@@ -77,36 +82,27 @@ export class AppComponent {
   }
 
   //  Sorting
-  sortChangeAtoZ(): void {
-    this.employees = this.allEmployees.sort((a: any, b: any) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-    });
-  }
-
-  sortChangeZtoA(): void {
-    this.employees = this.allEmployees.sort((a: any, b: any) => {
-      if (a.name > b.name) {
-        return -1;
-      }
-    });
-  }
-
-  sortChangeAge(): void {
-    this.employees = this.allEmployees.sort((a: any, b: any) => {
-      if (a.age < b.age) {
-        return -1;
-      }
-    });
-  }
-
-  sortChangeEmail(): void {
-    this.employees = this.allEmployees.sort((a: any, b: any) => {
-      if (a.email < b.email) {
-        return -1;
-      }
-    });
+  changeSortHandler(sorts: string): void {
+    if (sorts === '[A-Z]') {
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a.name > b.name ? 1 : -1);
+    }
+    else if (sorts === '[Z-A]') {
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a.name < b.name ? 1 : -1);
+    }
+    else if (sorts === 'Age') {
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a.age > b.age ? 1 : -1);
+    }
+    else if (sorts === 'Email') {
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a.email > b.email ? 1 : -1);
+    }
+    else {
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a.name > b.name ? 1 : -1);
+    }
   }
 
 }
