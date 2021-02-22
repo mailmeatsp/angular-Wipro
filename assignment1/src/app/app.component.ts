@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { IEmployee } from './models/employee';
 
 @Component({
@@ -7,19 +6,14 @@ import { IEmployee } from './models/employee';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   employees: IEmployee[];
   allEmployees: IEmployee[];
   searchText = '';
-  sorting: any;
-  contactForm: FormGroup;
-  sort: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     // Employee Details
-    this.sorting = ['[A-Z]', '[Z-A]', 'Age', 'Email'];
-
     this.employees = [
       {
         name: 'Employee One',
