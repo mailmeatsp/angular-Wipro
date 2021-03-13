@@ -107,4 +107,9 @@ export class AppComponent {
     }
   }
 
+  // simple function
+  simple(): void {
+    console.log('hello world');
+  }
+
 }
