@@ -76,8 +76,8 @@ export class AppComponent {
   }
 
   //  Sorting
-  changeSortHandler(sorts: string): void {
-    if (sorts === '[A-Z]') {
+  changeSortHandler(sorts: string, key): void {
+    /* if (sorts === '[A-Z]') {
       this.employees = this.allEmployees.sort((a: any, b: any) =>
       a.name > b.name ? 1 : -1);
     }
@@ -96,6 +96,14 @@ export class AppComponent {
     else {
       this.employees = this.allEmployees.sort((a: any, b: any) =>
       a.name > b.name ? 1 : -1);
+    } */
+    if (sorts === '[Z-A]') {
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a.name < b.name ? 1 : -1);
+    }
+    else { // [A-Z], age, email
+      this.employees = this.allEmployees.sort((a: any, b: any) =>
+      a[key] > b[key] ? 1 : -1);
     }
   }
 
